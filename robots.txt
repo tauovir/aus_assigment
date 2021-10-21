@@ -1,0 +1,4 @@
+User-Agent: *
+allow: 
+
+Sitemap: https://www.australialegalassignmenthelp.com/sitemap.xml
