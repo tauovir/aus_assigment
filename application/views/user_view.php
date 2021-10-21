@@ -899,7 +899,7 @@ function responseMessage(msg) {
       
           tr +='</span></p>';
           tr +='<p class="text-justify">'+ content +'</p>';
-          tr +='<p class="text-right" style="font-weight:bold;">'+ date + '&nbsp' + time +'</p>';
+          tr +='<p class="text-right" style="font-weight:bold;">'+ date +'</p>';
           tr +='</div></article>';
           
           $('#postsList').append(tr);

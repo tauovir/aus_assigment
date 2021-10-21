@@ -552,7 +552,7 @@ $data['highlighted_data2'] = $set->result();
 			$data['threestar']=$threestar;
 			$data['forstar']=$forstar;
 			$data['fivstar']=$fivstar;
-		$data['reviewavg']=round($trev/$rcou,2);
+		$data['reviewavg']=round($trev/$rcou,1);
 		$this->load->view('pages/new', $data); 
 } 
 public function geturgency()

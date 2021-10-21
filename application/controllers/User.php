@@ -43,6 +43,11 @@ class User extends CI_Controller {
 
       	// Get  records
       	$users_record = $this->Main_model->getData($rowno,$rowperpage);
+		  foreach($users_record as $key => $value){
+			$users_record[$key]['date_post'] = date('d M Y',strtotime($value['date_post']));
+			
+		  }
+
       	
       	// Pagination Configuration
       	$config['base_url'] = base_url().'index.php/User/loadRecord';
@@ -57,6 +62,8 @@ class User extends CI_Controller {
 		$data['pagination'] = $this->pagination->create_links();
 		$data['result'] = $users_record;
 		$data['row'] = $rowno;
+		
+		
 
 		echo json_encode($data);
 		
