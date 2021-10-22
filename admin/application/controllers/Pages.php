@@ -1343,8 +1343,8 @@ if($rest->position==0){ $post =  'Left'; } else { $post =  'Right'; }
 				<td><strong>Mobile </strong></td>
 					<td>:$rest->mobile</td>
 					 			
-				<td><strong>Gender </strong></td>
-					<td>: </td>
+				<td><strong>password </strong></td>
+					<td>: $rest->password </td>
 					 
 				</tr>
  

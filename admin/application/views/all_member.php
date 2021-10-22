@@ -31,6 +31,7 @@
 								<th>Mobile No.</th>
 							 
 								<th>Active Date</th>
+								<th>Action</th>
 									
 								<!-- <th>Change Status</th>-->
 							</tr>
@@ -62,6 +63,8 @@
 <a href="javascript:void(0);"   data-toggle="modal" data-target="#associatedMemberList" onclick="getAssociats('<?php echo $all_member_result->name;?>','<?php echo $all_member_result->id;?>');" class="label label-xs label-default">Transection History</a>
 
 									</td> -->
+									<td><a href="<?php echo base_url();?>member/edit/<?php echo $all_member_result->id; ?>" title="Edit" class="btn-link btn_size has-tooltip text-info" data-placement="top" data-original-title="Edit"><i class="fa fa-edit"></i></a>
+</td>
 							</tr>
 							
 						<?php $counts++; } ?>

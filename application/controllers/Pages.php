@@ -596,7 +596,7 @@ public function calculateprice()
  ?>
 <input type="hidden" name="strid" id="strid" value="<?=$pricedaat->urgency_amt;?>">
  <?php 
-    echo '$<span id="text-amt">'.$amount.'</span>';
+    echo '$<span id="text-amt">'.$amount.'</span> USD';
 
 }
 

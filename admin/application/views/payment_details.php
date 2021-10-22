@@ -253,7 +253,7 @@
  foreach($amo2->result() as $donwfile){
 if($donwfile->assignment_file!=''){ ?>
                                     <tr>
-                                      <td><?= $donwfile->assignment_title;?></td>
+                                      <td><?= $donwfile->assignment_title;?>UUUUU</td>
                                       <td colspan="6"><?= $donwfile->content;?></td>
                                       <td><a href="<?= base_url();?>../assets/<?= $donwfile->assignment_file;?>" target="_blank">Download Link</a></td>
                                     </tr>

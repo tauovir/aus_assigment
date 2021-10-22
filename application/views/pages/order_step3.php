@@ -137,7 +137,7 @@
                                 <li class="pricing-header"  for="full-amt">
                                 
                                     <h4>Order Payment 100%</h4>
-                                    <h2><sup>$</sup><?=  $totalamt;?> </h2>
+                                    <h2><sup>$</sup><?=  $totalamt;?> USD</h2>
                                     
                                 </li>
                               
@@ -203,7 +203,7 @@
                 </tr>
                 <tr>
                   <th>Basic Price</th>
-                  <td>$<?= $basicprice;?></td>
+                  <td>$<?= $basicprice;?> USD</td>
                 </tr>
                 <tr>
                   <th>Level of Study</th>
@@ -216,7 +216,7 @@
                 
                 <tr>
                   <th>Level of Study Price</th>
-                  <td>$<?= $study_level->price?></td>
+                  <td>$<?= $study_level->price?> USD</td>
                 </tr>
                 <tr>
                   <th>Total</th>
@@ -229,7 +229,7 @@
 
                       <span class="text-white">$<?php echo $totalex= $totalamts-$totalamts*$discount/100;?></span>
                     <?php } else { ?>
-                        $<?= $totalex= $basicprice+$study_level->price;?>
+                        $<?= $totalex= $basicprice+$study_level->price;?> USD
                     <?php } ?> 
                     <input type="hidden" value="<?=$basicprice+$study_level->price?>" name="totalamountofassignment">
                     </td>
@@ -248,7 +248,7 @@
                 <tr>
                   <td colspan="2">
                       <label class="btn btn-warning btn-xs">
-                         <input type="checkbox" name="walletamount" value="<?=$totalwallet;?>">  $<?=$totalwallet;?>, Do you use your wallet amount
+                         <input type="checkbox" name="walletamount" value="<?=$totalwallet;?>">  $ <?=$totalwallet;?> USD , Do you use your wallet amount
 
                       </label>
                   </td>

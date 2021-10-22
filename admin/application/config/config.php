@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = 'https://www.australialegalassignmenthelp.com/admin/';
-$config['base_url'] = 'http://localhost/aus_assigment/admin';
+$config['base_url'] = 'http://localhost/aus_assigment/admin/';
 
 
 

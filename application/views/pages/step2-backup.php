@@ -144,7 +144,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>Upload Your File </label>
+                    <label>Upload Your File 22222</label>
 <input type="file" name="assign_file" id="assign_file" class="form-control">
                         <span class="bbt_registration_error  text-danger"><?php echo form_error('assign_file');  ?><?php echo $this->session->flashdata('assign_file'); ?></span>
                 </div>
