@@ -152,11 +152,12 @@
 
 <div class="col-md-6">
     <div class="form-group">
-        <label class="form-heading">Upload Your File </label>
-            <input type="file" name="assi_desrip_file" id="assi_desrip_file" class="form-control">
+        <label class="form-heading">Upload Your File(s) </label>
+            <input type="file" name="assi_desrip_file[]" id="assi_desrip_file" class="form-control" multiple = 'multiple'>
                 <span class="bbt_registration_error  text-danger">
                     <?php echo form_error('assi_desrip_file');  ?><?php echo $this->session->flashdata('assi_desrip_file'); ?>
                 </span>
+                <?php echo $this->session->flashdata('error'); ?>
     </div>
 </div>
 

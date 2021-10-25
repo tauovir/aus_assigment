@@ -1016,11 +1016,23 @@ $this->form_validation->set_rules(
 
 			} else {
 
+				
+				
 				$config['upload_path']= './assets/setting/';
 		        $config['allowed_types']= 'jpg|png|pdf|PDF|doc|docx|pptx|PPTX|PNG|xls|xlsx|XLS|XLSX|JPG|JPEG|jpeg';
 		        $config['max_size'] = 1024 * 8;
 		       	$config['encrypt_name'] = TRUE;
 		       	$this->load->library('upload', $config);
+				$resp = $this->upload_multiple_files($_FILES,'assign_file');
+				
+				if (count($resp['error']) > 0)
+				{
+					$this->session->set_flashdata('error', '<div class="alert alert-danger">File types are invalid</div>');
+					redirect('order-step-2/'.$this->uri->segment(2));
+				}
+				// insert documentation
+				$response = $this->insert_documentaion($this->uri->segment(2),$resp['info'],'assignment',true);
+					
 		        if (!$this->upload->do_upload('assign_file'))
 		        { 
 					$assi_desrip_file='';
@@ -1043,11 +1055,10 @@ $this->form_validation->set_rules(
 				'dollerRate' => $this->input->post('dollerRate'),
 				'assi_desrip_file'=>$assi_desrip_file
 			); 
-		$this->db->where('order_id',$this->uri->segment(2));
-		$this->db->update('tbl_orders',$datas);
+			$this->db->where('order_id',$this->uri->segment(2));
+			$this->db->update('tbl_orders',$datas);
 			
-			
-			
+		
 			$data25 = array(  
 	            'mobile' => $this->input->post('phonefull') 
 	        ); 
@@ -1070,9 +1081,74 @@ $this->form_validation->set_rules(
 
 }
 
+private function insert_documentaion($order_id,$documents_name,$document_type,$isMultiple)
+{	
+	if ($isMultiple == true) {
+		foreach ($documents_name as $name){
+			$datas = array(  
+				'order_id' => $order_id,
+				'document_name' =>$name,
+				'document_type' => $document_type
+			); 
+			$response =$this->db->insert('tbl_documents',$datas); 
+
+		}
+	} else {
+
+		$datas = array(  
+			'order_id' => $order_id,
+			'document_name' =>$documents_name,
+			'document_type' => $document_type
+		); 
+		$response = $this->db->insert('tbl_documents',$datas); 
+	}
+	return $response;
+
+}
 
 
 
+private function upload_multiple_files($files,$file_name)
+{
+	/**
+	 * This functioins is used to upload multiples fiile on server;
+	 * assign_file
+	 */
+	
+	$fileInfos = array();
+	$errors = array();	
+
+	$noFile = $files[$file_name]['size'][0] === 0 && $files[$file_name]['tmp_name'][0] === '';
+	// If no files are selected
+	if ($noFile) {
+		$resp = array('info'=>$fileInfos,'error'=>$errors);
+		return $resp;
+	}
+
+	if (!empty($files[$file_name]['name'])) {	
+		$photosCount = count($files[$file_name]['name']);
+		
+		for ($i = 0; $i < $photosCount; $i ++) {
+			// Create file upload info
+			$_FILES['photo']['name'] = $_FILES[$file_name]['name'][$i];
+			$_FILES['photo']['type'] = $_FILES[$file_name]['type'][$i];
+			$_FILES['photo']['tmp_name'] = $_FILES[$file_name]['tmp_name'][$i];
+			$_FILES['photo']['error'] = $_FILES[$file_name]['error'][$i];
+			$_FILES['photo']['size'] = $_FILES[$file_name]['size'][$i];
+			// Upload file to server
+			if ($this->upload->do_upload('photo')) {
+				$info = $this->upload->data();
+				array_push($fileInfos, $info['file_name']);
+			 } 
+			 else {
+				array_push($errors,  $this->upload->display_errors());
+			}
+		}
+	}
+	$resp = array('info'=>$fileInfos,'error'=>$errors);
+	return $resp;
+
+}
 
 
 
@@ -3404,13 +3480,22 @@ if ($this->form_validation->run() == FALSE) {
 		$config['max_size'] = 1024 * 1;
 		$config['encrypt_name'] = TRUE;
 		$this->load->library('upload', $config);
-		if (!$this->upload->do_upload('assi_desrip_file'))
-		{ 
-			$assi_desrip_file='';
-		} else {
-			$x=$this->upload->data();
-		    $assi_desrip_file = $x['file_name'];
-		}
+		$resp = $this->upload_multiple_files($_FILES,'assi_desrip_file');
+		if (count($resp['error']) > 0)
+				{
+					
+					$this->session->set_flashdata('error', '<div class="alert alert-danger">File types are invalid</div>');
+					redirect('new-assignment');
+				}
+				
+
+		// if (!$this->upload->do_upload('assi_desrip_file'))
+		// { 
+		// 	$assi_desrip_file='';
+		// } else {
+		// 	$x=$this->upload->data();
+		//     $assi_desrip_file = $x['file_name'];
+		// }
 							$this->db->select('*');
 					        $this->db->from('tbl_orders');
 					        $this->db->order_by('id','DESC');
@@ -3439,11 +3524,14 @@ if ($this->form_validation->run() == FALSE) {
 				'assi_referencce' => $this->input->post('assi_referencce'),
 				'assi_desrip' => $this->input->post('assi_desrip'),
 				'mobile' => $this->input->post('mobile'),
-				'assi_desrip_file'=>$assi_desrip_file,
+				//'assi_desrip_file'=>$assi_desrip_file,
 				'order_id'=>$orderid,
 				'email'=>$this->input->post('emailid')
 			); 
 			$this->db->insert('tbl_orders',$datas);
+			
+			// insert documentation
+			$response = $this->insert_documentaion($orderid,$resp['info'],'assignment',true);
 			redirect('order-step3/'.$orderid);
 		}
 }

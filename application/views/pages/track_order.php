@@ -229,7 +229,46 @@ if($paymentdata->assignment_file!=''){ ?>
  </tbody>
           
 
+<!----- Documents----->
+<?php
+                               $this->db->select('*');
+                               $this->db->from('tbl_documents');
+                               $this->db->where('order_id',$order_result->order_id);
+                               $this->db->order_by('created_at', 'DESC');
+                               $documents = $this->db->get();
+                               $cnt = 0;
+                              ?>
+                              
+                              <thead>
+                                <tr>
+                                  <th colspan="8">
+                                    <h3> Uploaded Documents </h3>
+                                  </th>
+                                </tr>
+                                <?php if(count($documents->result()) > 0) {?>
+                                <tr>
+                                  <th>#</th>
+                                  <th>Download Link</th>
+                                  <th>Document Type</th>
+                                  <th>Created Date</th>
+                                </tr>
+                              </thead>
+                             
 
+                              <tbody>
+                                ` <?php
+                                  foreach ($documents->result() as $donwfile) {
+                                    $cnt = $cnt + 1; ?>
+                                  <tr>
+                                    <td><?= $cnt; ?></td>
+                                    <td><a href="<?= base_url(); ?>../assets/setting/<?= $donwfile->document_name; ?>" target="_blank">Download Link</a></td>
+                                    <td><?= $donwfile->document_type; ?></td>
+                                    <td><?= date('Y-m-d',strtotime($donwfile->created_at)); ?></td>
+                                  </tr>
+                                <?php } ?>
+                              </tbody>`
+                              <?php } else  echo " <tr><td> No documents uploaded </td></tr>";?>
+                              <!----- Documents End----->
 
 
 <tfoot>

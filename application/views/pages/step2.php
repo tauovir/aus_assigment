@@ -200,10 +200,11 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>Upload Your File </label>
-<input type="file" name="assign_file" id="assign_file" class="form-control">
+                    <label>Upload Your File(s)</label>
+<input type="file" name="assign_file[]" id="assign_file" class="form-control"  multiple="multiple">
                         <span class="bbt_registration_error  text-danger"><?php echo form_error('assign_file');  ?><?php echo $this->session->flashdata('assign_file'); ?></span>
                 </div>
+                <?php echo $this->session->flashdata('error'); ?>
             </div>
             <div class="col-md-12">
                 <div class="form-group comments">
